@@ -105,10 +105,9 @@ const Footer = () => {
       </StyledSocialLinks>
 
       <StyledCredit tabindex="-1">
-        <a href="https://github.com/Yumustyology/v4">
+        <a href="https://github.com/Yumustyology/">
           <div>
-            Design inspired by Brittany Chiang's portfolio. Remixed and developed by Yusuf
-            Mustahan
+            Design inspired by Brittany Chiang's portfolio. Remixed and developed by Yusuf Mustahan
           </div>
 
           {githubInfo.stars && githubInfo.forks && (

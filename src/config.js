@@ -6,9 +6,10 @@ module.exports = {
       name: 'GitHub',
       url: 'https://github.com/Yumustyology',
     },
+    // Instagram replaced by WhatsApp per request
     {
-      name: 'Instagram',
-      url: 'https://www.instagram.com/yumustyology',
+      name: 'WhatsApp',
+      url: 'https://wa.me/2348142450182',
     },
     {
       name: 'Twitter',

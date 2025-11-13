@@ -2,6 +2,7 @@
 date: '4'
 title: 'Fizzy'
 cover: './demo.png'
+external: 'https://yung-fizzy.netlify.app/'
 cta: ''
 tech:
   - Next.js
