@@ -9,8 +9,12 @@ import { useScrollDirection, usePrefersReducedMotion } from '@hooks';
 import { Menu } from '@components';
 import { IconLogo } from '@components/icons';
 
+/* ---- FIXED: Removed mixins, replaced with static flexbox ---- */
 const StyledHeader = styled.header`
-  ${({ theme }) => theme.mixins.flexBetween};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   position: fixed;
   top: 0;
   z-index: 11;
@@ -18,9 +22,6 @@ const StyledHeader = styled.header`
   width: 100%;
   height: var(--nav-height);
   background-color: var(--primary-bg);
-  filter: none !important;
-  pointer-events: auto !important;
-  user-select: auto !important;
   backdrop-filter: blur(10px);
   transition: var(--transition);
 
@@ -32,7 +33,7 @@ const StyledHeader = styled.header`
   }
 
   @media (prefers-reduced-motion: no-preference) {
-        ${props =>
+    ${props =>
     props.scrollDirection === 'up' &&
       !props.scrolledToTop &&
       css`
@@ -54,7 +55,10 @@ const StyledHeader = styled.header`
 `;
 
 const StyledNav = styled.nav`
-  ${({ theme }) => theme.mixins.flexBetween};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   position: relative;
   width: 100%;
   color: var(--lightest-slate);
@@ -63,7 +67,9 @@ const StyledNav = styled.nav`
   z-index: 12;
 
   .logo {
-    ${({ theme }) => theme.mixins.flexCenter};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     a {
       color: var(--green);
@@ -85,12 +91,9 @@ const StyledNav = styled.nav`
       .logo-container {
         position: relative;
         z-index: 1;
+
         svg {
           fill: none;
-          user-select: none;
-          @media (prefers-reduced-motion: no-preference) {
-            transition: var(--transition);
-          }
           polygon {
             fill: var(--navy);
           }
@@ -118,14 +121,16 @@ const StyledLinks = styled.div`
   }
 
   ol {
-    ${({ theme }) => theme.mixins.flexBetween};
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     padding: 0;
     margin: 0;
     list-style: none;
 
     li {
       margin: 0 5px;
-      position: relative;
       counter-increment: item 1;
       font-size: var(--fz-xs);
 
@@ -137,7 +142,6 @@ const StyledLinks = styled.div`
           margin-right: 5px;
           color: var(--green);
           font-size: var(--fz-xxs);
-          text-align: right;
         }
       }
     }
@@ -151,30 +155,23 @@ const StyledLinks = styled.div`
 `;
 
 const Nav = ({ isHome }) => {
-  const [isMounted, setIsMounted] = useState(!isHome);
-  const scrollDirection = useScrollDirection('down');
-  const [scrolledToTop, setScrolledToTop] = useState(true);
+  // FIX: Prevent hydration mismatch
+  const [mounted, setMounted] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  const handleScroll = () => {
-    setScrolledToTop(window.pageYOffset < 50);
-  };
+  useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
+  const scrollDirection = useScrollDirection('down');
+  const [scrolledToTop, setScrolledToTop] = useState(true);
+
+  const handleScroll = () => setScrolledToTop(window.pageYOffset < 50);
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      setIsMounted(true);
-    }, 100);
-
     window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      clearTimeout(timeout);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const timeout = isHome ? loaderDelay : 0;
@@ -183,19 +180,11 @@ const Nav = ({ isHome }) => {
 
   const Logo = (
     <div className="logo" tabIndex="-1">
-      {isHome ? (
-        <a href="/" aria-label="home">
-          <div className="logo-container">
-            <IconLogo />
-          </div>
-        </a>
-      ) : (
-        <Link to="/" aria-label="home">
-          <div className="logo-container">
-            <IconLogo />
-          </div>
-        </Link>
-      )}
+      <Link to="/" aria-label="home">
+        <div className="logo-container">
+          <IconLogo />
+        </div>
+      </Link>
     </div>
   );
 
@@ -211,25 +200,22 @@ const Nav = ({ isHome }) => {
         {prefersReducedMotion ? (
           <>
             {Logo}
-
             <StyledLinks>
               <ol>
-                {navLinks &&
-                  navLinks.map(({ url, name }, i) => (
-                    <li key={i}>
-                      <Link to={url}>{name}</Link>
-                    </li>
-                  ))}
+                {navLinks.map((link, i) => (
+                  <li key={i}>
+                    <Link to={link.url}>{link.name}</Link>
+                  </li>
+                ))}
               </ol>
               <div>{ResumeLink}</div>
             </StyledLinks>
-
             <Menu />
           </>
         ) : (
           <>
             <TransitionGroup component={null}>
-              {isMounted && (
+              {mounted && (
                 <CSSTransition classNames={fadeClass} timeout={timeout}>
                   <>{Logo}</>
                 </CSSTransition>
@@ -239,12 +225,11 @@ const Nav = ({ isHome }) => {
             <StyledLinks>
               <ol>
                 <TransitionGroup component={null}>
-                  {isMounted &&
-                    navLinks &&
-                    navLinks.map(({ url, name }, i) => (
+                  {mounted &&
+                    navLinks.map((link, i) => (
                       <CSSTransition key={i} classNames={fadeDownClass} timeout={timeout}>
-                        <li key={i} style={{ transitionDelay: `${isHome ? i * 100 : 0}ms` }}>
-                          <Link to={url}>{name}</Link>
+                        <li style={{ transitionDelay: `${isHome ? i * 100 : 0}ms` }}>
+                          <Link to={link.url}>{link.name}</Link>
                         </li>
                       </CSSTransition>
                     ))}
@@ -252,7 +237,7 @@ const Nav = ({ isHome }) => {
               </ol>
 
               <TransitionGroup component={null}>
-                {isMounted && (
+                {mounted && (
                   <CSSTransition classNames={fadeDownClass} timeout={timeout}>
                     <div style={{ transitionDelay: `${isHome ? navLinks.length * 100 : 0}ms` }}>
                       {ResumeLink}
@@ -263,7 +248,7 @@ const Nav = ({ isHome }) => {
             </StyledLinks>
 
             <TransitionGroup component={null}>
-              {isMounted && (
+              {mounted && (
                 <CSSTransition classNames={fadeClass} timeout={timeout}>
                   <Menu />
                 </CSSTransition>
