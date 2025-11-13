@@ -2,7 +2,7 @@
 title: "Dummy Text Generator"
 date: "2025-11-13"
 description: "React app with a local API that produces human-friendly placeholder text as a better alternative to lorem ipsum."
-external: 'https://yumustyung-dummy-text.netlify.app/'
+external: "https://yumustyung-dummy-text.netlify.app/"
 tech:
   - React
   - Node.js
