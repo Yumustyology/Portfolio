@@ -8,10 +8,9 @@ range: 'Nov 2021 - Jun 2022'
 url: ''
 linkedin: 'https://www.linkedin.com/company/pluno-io/about/'
 tags:
-
-- Next.js
-- web3.js
-- Firebase
+  - Next.js
+  - web3.js
+  - Firebase
 
 Worked on backend and frontend integrations for a 3D collaboration workspace, focusing on performance and Web3 integrations.
 
