@@ -1,5 +1,5 @@
 ---
-date: '4'
+date: '2024-09-30'
 title: 'Shippex'
 github: 'https://github.com/Yumustyology/shippex'
 tech:

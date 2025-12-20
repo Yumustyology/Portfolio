@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef } from 'react';
 // removed useStaticQuery/graphql: using hardcoded jobsData instead
 import styled from 'styled-components';
@@ -5,7 +6,10 @@ import anime from 'animejs/lib/anime.es.js';
 import { srConfig } from '@config';
 import sr from '@utils/sr';
 import { usePrefersReducedMotion } from '@hooks';
+import { IconLinkedin } from '@components/icons';
+/* eslint-enable no-unused-vars */
 
+/* eslint-disable-next-line no-unused-vars */
 const StyledExperience = styled.section`
   max-width: 900px;
 
@@ -40,7 +44,7 @@ const StyledExperience = styled.section`
 
   .card {
     background: transparent;
-    border: 1px solid rgba(255,255,255,0.03);
+    border: 1px solid rgba(255, 255, 255, 0.03);
     padding: 20px 18px 12px; /* pt ~20px */
     border-radius: 6px;
   }
@@ -64,7 +68,7 @@ const StyledExperience = styled.section`
   }
 
   .tag {
-    background: rgba(255,255,255,0.04);
+    background: rgba(255, 255, 255, 0.04);
     color: var(--green);
     padding: 0 12px; /* horizontal padding only; use fixed height to vertically center */
     height: 30px;
@@ -76,8 +80,8 @@ const StyledExperience = styled.section`
     white-space: nowrap;
     line-height: 30px; /* match height for robust vertical centering */
     vertical-align: middle;
-    border: 1px solid rgba(255,255,255,0.04);
-    box-shadow: rgba(0,0,0,0.08) 0 1px 0 inset;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: rgba(0, 0, 0, 0.08) 0 1px 0 inset;
     transition: transform 120ms ease-out; /* small scale on hover for snappiness */
     cursor: default; /* not interactive pointer */
     -webkit-user-select: none;
@@ -88,9 +92,8 @@ const StyledExperience = styled.section`
 
   .tag:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(100,255,218,0.06);
+    box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.06);
   }
-
 
   .resume-cta {
     ${({ theme }) => theme.mixins.smallButton};
@@ -147,6 +150,7 @@ const Jobs = () => {
           company: 'Circlein (Pluno), London',
           range: 'Nov 2021 - Jun 2022',
           url: 'https://pluno.io',
+          linkedin: 'https://www.linkedin.com/company/pluno-io/about/',
           tags: ['Next.js', 'web3.js', 'Firebase', 'WalletConnect'],
         },
         html:
@@ -191,9 +195,13 @@ const Jobs = () => {
 
   // Hover / focus animations for skill tags using anime.js
   useEffect(() => {
-    if (prefersReducedMotion) { return undefined; }
+    if (prefersReducedMotion) {
+      return undefined;
+    }
     const root = revealContainer.current;
-    if (!root) { return undefined; }
+    if (!root) {
+      return undefined;
+    }
 
     const rootStyles = getComputedStyle(document.documentElement);
     const green = (rootStyles.getPropertyValue('--green') || '#64ffda').trim();
@@ -257,8 +265,23 @@ const Jobs = () => {
                 <h3>
                   {title}
                   {url && (
-                    <a href={url} className="company-link" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={url}
+                      className="company-link"
+                      target="_blank"
+                      rel="noopener noreferrer">
                       &nbsp;↗ {company}
+                    </a>
+                  )}
+                  {frontmatter.linkedin && (
+                    <a
+                      href={frontmatter.linkedin}
+                      className="company-link company-link--icon"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${company} LinkedIn`}
+                      style={{ marginLeft: 8 }}>
+                      <IconLinkedin />
                     </a>
                   )}
                 </h3>

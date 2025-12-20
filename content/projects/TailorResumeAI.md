@@ -1,5 +1,5 @@
 ---
-date: '5'
+date: '2025-11-15'
 title: 'TailorResumeAI'
 external: 'http://tailor-job-resume.vercel.app/'
 tech:
@@ -12,6 +12,5 @@ draft: false
 ios: ''
 android: ''
 ---
- 
-TailorResumeAI produces job description tailored ATS-optimized resumes and cover letters instantly, with conversational editing, ATS scoring, and an AI interview coach and more.
 
+TailorResumeAI produces job description tailored ATS-optimized resumes and cover letters instantly, with conversational editing, ATS scoring, and an AI interview coach and more.

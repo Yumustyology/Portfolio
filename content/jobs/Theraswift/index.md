@@ -2,6 +2,7 @@
 date: '2022-12-01'
 title: 'Fullstack Mobile Application Developer'
 company: 'Theraswift'
+# url: 'https://indigenius.ai/'
 location: 'Nigeria'
 range: 'Dec 2022 - Aug 2023'
 url: ''

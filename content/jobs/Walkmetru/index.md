@@ -4,7 +4,7 @@ title: 'Fullstack Web Application Developer'
 company: 'Walkmetru'
 location: 'United Kingdom'
 range: 'Sep 2023 - Jul 2024'
-url: ''
+url: 'https://walkmetru.com/'
 tags:
   - Next.js
   - Firebase

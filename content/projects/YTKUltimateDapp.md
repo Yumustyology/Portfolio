@@ -1,5 +1,5 @@
 ---
-date: '2'
+date: '2022-11-13'
 title: 'YTK Ultimate DApp'
 github: 'https://github.com/Yumustyology/ytk-ultimate-dapp'
 external: 'https://ytk-dapp.netlify.app/'
