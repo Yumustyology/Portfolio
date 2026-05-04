@@ -3,7 +3,8 @@ const config = require('./src/config');
 module.exports = {
   siteMetadata: {
     title: 'Yusuf Mustahan',
-    description: 'Yusuf Mustahan is a full-stack developer who builds fast, accessible, and user-friendly web applications. He enjoys solving hard problems, shipping elegant code, and turning ideas into polished products.',
+    description:
+      'Yusuf Mustahan is a full-stack developer who builds fast, accessible, and user-friendly web applications. He enjoys solving hard problems, shipping elegant code, and turning ideas into polished products.',
     siteUrl: 'https://yumustyology.com', // No trailing slash allowed!
     image: '/og.png', // Path to your image you placed in the 'static' folder
     twitterUsername: '@Yumustyology',
@@ -25,8 +26,8 @@ module.exports = {
         background_color: config.colors.darkNavy,
         theme_color: config.colors.navy,
         display: 'minimal-ui',
-  // Use your personal photo as the site icon / favicon.
-  icon: 'src/images/me.jpg',
+        // Use your personal photo as the site icon / favicon.
+        icon: 'src/images/me.jpg',
       },
     },
     `gatsby-plugin-offline`,
@@ -77,7 +78,6 @@ module.exports = {
               maxWidth: 700,
               linkImagesToOriginal: true,
               quality: 90,
-              tracedSVG: { color: config.colors.green },
             },
           },
           {
@@ -155,5 +155,6 @@ module.exports = {
         trackingId: 'UA-45666519-2',
       },
     },
+    `gatsby-plugin-netlify`,
   ],
 };
