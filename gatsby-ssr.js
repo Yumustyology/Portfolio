@@ -1,7 +1,23 @@
-/**
- * Implement Gatsby's SSR (Server Side Rendering) APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/ssr-apis/
- */
+const React = require('react'); // eslint-disable-line no-unused-vars
 
- // You can delete this file if you're not using it
+exports.onRenderBody = ({ setHeadComponents }) => {
+  setHeadComponents([
+    <script
+      key="google-tag-manager"
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HT5HX2C39H"
+    />,
+    <script
+      key="google-analytics"
+      dangerouslySetInnerHTML={{
+        __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-HT5HX2C39H');
+        `,
+      }}
+    />,
+  ]);
+};
